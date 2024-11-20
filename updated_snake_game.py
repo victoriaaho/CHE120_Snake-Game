@@ -69,6 +69,8 @@ def inside(head):
 
 def move(game_started):
     """Move snake forward one segment if game has started."""
+    global level
+    
     if not game_started:
         return
 
