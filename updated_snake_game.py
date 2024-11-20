@@ -1,23 +1,11 @@
+@ -0,0 +1,117 @@
 from random import randrange
 from turtle import *
 from freegames import square, vector
 
-level = 1
 food = vector(0, 0)
 snake = [vector(10, 0)]
 aim = vector(0, -10)
-
-score_disp = Turtle()
-score_disp.hideturtle()
-score_disp.color('black')
-score_disp.penup()
-score_disp.goto(0,180)
-
-level_disp = Turtle()
-level_disp.hideturtle()
-level_disp.color('black')
-level_disp.penup()
-level_disp.goto(0,150)
 
 def start_game():
     """Initialize the game loop by starting the movement and drawing the border."""
@@ -69,8 +57,6 @@ def inside(head):
 
 def move(game_started):
     """Move snake forward one segment if game has started."""
-    global level
-    
     if not game_started:
         return
 
@@ -89,24 +75,9 @@ def move(game_started):
         print('Snake:', len(snake))
         food.x = randrange(-15, 15) * 10
         food.y = randrange(-15, 15) * 10
-        
-        score_disp.clear()
-        score_disp.write(f"Score: {len(snake)-1}", align="center", font=("Courier New",16,"normal"))
-        
     else:
         snake.pop(0)
 
-    if len(snake)%5==0 and len(snake)>0 and len(snake)//5>level-1:
-        level+=1
-        level_disp.clear()
-        level_disp.write(f"Level: {level}", align="center", font=("Courier New",16,"normal"))
-    
-    if level==10:
-        level_disp.clear()
-        level_disp.write("Level 10! Congratulations: you won!", align="center", font=("Courier New",16,"normal"))
-        update()
-        ontimer(bye,2000)
-    
     clear()
     draw_border()  # Draw the border only after the game starts
 
