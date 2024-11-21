@@ -107,7 +107,7 @@ def move(game_started):
         score_disp.write(f"Score: {food_eaten}", align="center", font=("Courier New", 16, "normal"))
 
         # Update level after every 5 foods eaten
-        new_level = food_eaten//1 + 1 # Starting levels from level 1
+        new_level = food_eaten//5 + 1 # Starting levels from level 1
         if new_level > level:
             level = new_level
             level_disp.clear()
