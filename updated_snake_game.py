@@ -8,6 +8,7 @@ food = vector(0, 0) # Initial position of food
 snake = [vector(10, 0)] # Initial position of snake
 aim = vector(0, -10) # Snake movement direction
 food_eaten = 0 # Tracks the number of food items eaten
+obstacles = []
 
 # Score and level displays
 score_disp = Turtle()
@@ -78,6 +79,19 @@ def inside(head):
     """Return True if head inside boundaries."""
     return -200 < head.x < 190 and -200 < head.y < 190
 
+def create_obstacles(): #Creates new obstacles depending on the level the user reaches.
+    global obstacles
+    new_obstacles = []
+    for i in range(level):
+        while True:
+            obstacle_graphic = vector(randrange(-15, 15) * 10,randrange(-15, 15) * 10)
+        #KP: Ensure that the obstacles do not appear where the foods are.
+            if obstacle_graphic != food and obstacle_graphic not in snake:
+                new_obstacles.append(obstacle_graphic)
+                break
+        
+    obstacles.extend(new_obstacles)
+            
 
 def move(game_started):
     """Move snake forward one segment if game has started."""
@@ -94,13 +108,24 @@ def move(game_started):
         update()
         ontimer(game_over,1000)
         return
+    
+    #If the snake (variable "head") collides with an obstacle
+    if head in obstacles:
+        square(head.x, head.y, 9, 'black')
+        update()
+        ontimer(game_over,1000)
+        return
 
     snake.append(head)
 
-    #Check if the snake eats the food
-    if round(head.x, 1) == round(food.x, 1) and round(head.y, 1) == round(food.y, 1):
-        food.x = randrange(-15, 15) * 10
-        food.y = randrange(-15, 15) * 10
+    #Check if the snake eats the food - and ensure that food does not spawn on obstacle. 
+    if head==food:
+        while True:
+            food.x = randrange(-15, 15) * 10
+            food.y = randrange(-15, 15) * 10
+            if vector(food.x, food.y) not in obstacles:
+                break
+        
         
         food_eaten += 1
         score_disp.clear()
@@ -112,6 +137,7 @@ def move(game_started):
             level = new_level
             level_disp.clear()
             level_disp.write(f"Level: {level}", align="center", font=("Courier New", 16, "normal"))
+            create_obstacles()
     
     else:
         snake.pop(0)
@@ -131,6 +157,11 @@ def move(game_started):
     square(food.x, food.y, 9, '#f10000')
     update()
     ontimer(lambda: move(game_started), 100)
+    
+    #KP: drawing the obstacles
+    for obstacle in obstacles:
+        square(obstacle.x, obstacle.y, 9, 'blue')
+    update()
 
 def win_game():
     # Clear the score and level display for the winner page
