@@ -9,7 +9,7 @@ snake = [vector(10, 0)] # Initial position of snake
 aim = vector(0, -10) # Snake movement direction
 food_eaten = 0 # Tracks the number of food items eaten
 obstacles = []
-
+speed = 100
 
 # Score and level displays
 score_disp = Turtle()
@@ -139,6 +139,8 @@ def move(game_started):
             level_disp.clear()
             level_disp.write(f"Level: {level}", align="center", font=("Courier New", 16, "normal"))
             create_obstacles()
+            global speed 
+            speed = max(30, int(speed*0.9))
     
     else:
         snake.pop(0)
@@ -157,7 +159,7 @@ def move(game_started):
 
     square(food.x, food.y, 9, '#f10000')
     update()
-    ontimer(lambda: move(game_started), 100)
+    ontimer(lambda: move(game_started), speed)
     
     #KP: drawing the obstacles
     for obstacle in obstacles:
@@ -195,7 +197,7 @@ def game_over():
     
 def restart_game(): 
     """shows the welcome screen again"""
-    global food, snake, aim, level, food_eaten, obstacles #global refers to variables defines outside of the local function - reset them
+    global food, snake, aim, level, food_eaten, obstacles, speed #global refers to variables defines outside of the local function - reset them
     # Resetting all positions
     food = vector(0, 0) 
     snake = [vector(10, 0)]
@@ -203,11 +205,15 @@ def restart_game():
     level = 1
     food_eaten = 0 # Reset the food counter
     obstacles = []
+    speed = 100
     
     score_disp.clear()
     level_disp.clear()
     
+    
     show_welcome_screen() #calling the function to display screen
+    
+    
     
 def quit_game():
     """exits the game"""
