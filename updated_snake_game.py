@@ -10,6 +10,7 @@ aim = vector(0, -10) # Snake movement direction
 food_eaten = 0 # Tracks the number of food items eaten
 obstacles = []
 
+
 # Score and level displays
 score_disp = Turtle()
 score_disp.hideturtle()
@@ -194,13 +195,15 @@ def game_over():
     
 def restart_game(): 
     """shows the welcome screen again"""
-    global food, snake, aim, level, food_eaten #global refers to variables defines outside of the local function - reset them
+    global food, snake, aim, level, food_eaten, obstacles #global refers to variables defines outside of the local function - reset them
     # Resetting all positions
     food = vector(0, 0) 
     snake = [vector(10, 0)]
     aim = vector(0, -10)
     level = 1
     food_eaten = 0 # Reset the food counter
+    obstacles = []
+    
     score_disp.clear()
     level_disp.clear()
     
