@@ -140,7 +140,7 @@ def move(game_started):
             level_disp.write(f"Level: {level}", align="center", font=("Courier New", 16, "normal"))
             create_obstacles()
             global speed 
-            speed = max(30, int(speed*0.9))
+            speed = (int(speed*0.9))
     
     else:
         snake.pop(0)
