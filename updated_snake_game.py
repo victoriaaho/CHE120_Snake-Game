@@ -139,7 +139,8 @@ def move(game_started):
             level_disp.clear()
             level_disp.write(f"Level: {level}", align="center", font=("Courier New", 16, "normal"))
             create_obstacles()
-            global speed 
+            global speed #global refers to variables defines outside of the local function - reset them
+            # RH: decreasing the speed by 10% every time player moves on to a new level. decreasing the speed shortens the delay time and hence increases speed of snake.
             speed = (int(speed*0.9))
     
     else:
@@ -205,6 +206,7 @@ def restart_game():
     level = 1
     food_eaten = 0 # Reset the food counter
     obstacles = []
+    #RH: need to reset speed when games over so it doesnèt start at decreased delay time next game
     speed = 100
     
     score_disp.clear()
