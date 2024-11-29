@@ -146,7 +146,7 @@ def move(game_started):
     else:
         snake.pop(0)
         
-    if level == 10:
+    if level == 6:
         ontimer(win_game, 1000)
         return 
         
@@ -162,7 +162,6 @@ def move(game_started):
     update()
     ontimer(lambda: move(game_started), speed)
     
-    #KP: drawing the obstacles
     for obstacle in obstacles:
         square(obstacle.x, obstacle.y, 9, 'blue')
     update()
