@@ -10,6 +10,7 @@ aim = vector(0, -10) # Snake movement direction
 food_eaten = 0 # Tracks the number of food items eaten
 obstacles = []
 speed = 100
+increment = 10
 
 # Score and level displays
 score_disp = Turtle()
@@ -139,9 +140,13 @@ def move(game_started):
             level_disp.clear()
             level_disp.write(f"Level: {level}", align="center", font=("Courier New", 16, "normal"))
             create_obstacles()
-            global speed #global refers to variables defines outside of the local function - reset them
-            # RH: decreasing the speed by 10% every time player moves on to a new level. decreasing the speed shortens the delay time and hence increases speed of snake.
-            speed = (int(speed*0.9))
+            global speed
+            global increment 
+            #global refers to variables defines outside of the local function - reset them
+            # RH: Increment speed at every level
+            speed -= increment
+            print("Speed increased to" + ' ' + speed)
+
     
     else:
         snake.pop(0)
