@@ -142,7 +142,7 @@ def move(game_started):
             create_obstacles()
             global speed
             global increment 
-            #global refers to variables defines outside of the local function - reset them
+            #global refers to variables defines outside of the local function - reassign them
             # RH: Increment speed at every level
             speed -= increment
             
