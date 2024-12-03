@@ -151,7 +151,7 @@ def move(game_started):
     else:
         snake.pop(0)
         
-    if level == 6:
+    if level == 5:
         ontimer(win_game, 1000)
         return 
         
